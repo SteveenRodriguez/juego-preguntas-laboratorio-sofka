@@ -3,8 +3,6 @@ package com.softka.juegopreguntas.model;
 import com.softka.juegopreguntas.controller.TestJuego;
 import com.softka.juegopreguntas.jugador.Jugador;
 
-import java.util.Scanner;
-
 /**
  * Clase abstracta historico, en la que se actualiza el historico del juego y se puede ver el historial.
  *
@@ -28,10 +26,7 @@ public abstract class Historico {
      * Método que muestra el historial del juego.
      */
     public void verHistorial(){
-        Scanner scanner = new Scanner(System.in);
         PersistenciaDatos.mostrarHistoricoJuego();
-        System.out.println("Presione cualquier tecla, para volver al inicio.");
-        scanner.nextLine();
         testJuego.bienvenidaJuego();
     }
 }

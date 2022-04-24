@@ -20,15 +20,24 @@ public class IniciarJuego extends Historico {
     private final ArrayList<Preguntas> preguntasSeleccionadas;
     private final Jugador jugador;
     private Integer puntosJugador;
-    private static final String rondaEstilo1 = "\n\t\u001B[45m";
-    private static final String rondaEstilo2 = "\u001B[0m";
 
     /**
-     * constructor de la clase que inicia las propiedades
+     * Constructor de la clase que inicia las propiedades
      */
     public IniciarJuego(){
         this.preguntasSeleccionadas = new ArrayList<>();
         this.jugador = new Jugador();
+        this.puntosJugador = 0;
+    }
+
+    /**
+     * Constructor que recibe un parametro, este es un ejemplo de polimorfismo
+     *
+     * @param jugador Objeto de tipo jugador que se asignará a la clase IniciarJuego
+     */
+    public IniciarJuego(Jugador jugador){
+        this.preguntasSeleccionadas = new ArrayList<>();
+        this.jugador = jugador;
         this.puntosJugador = 0;
     }
 
@@ -39,11 +48,11 @@ public class IniciarJuego extends Historico {
         Scanner sc = new Scanner(System.in);
         System.out.println("Digite su nombre:");
         this.jugador.setNombreJugador(sc.nextLine());
-        ronda(rondaEstilo1 + "Ronda 1" + rondaEstilo2);
-        ronda(rondaEstilo1 + "Ronda 2" + rondaEstilo2);
-        ronda(rondaEstilo1 + "Ronda 3" + rondaEstilo2);
-        ronda(rondaEstilo1 + "Ronda 4" + rondaEstilo2);
-        ronda(rondaEstilo1 + "Ronda 5" + rondaEstilo2);
+        ronda("Ronda 1");
+        ronda("Ronda 2");
+        ronda("Ronda 3");
+        ronda("Ronda 4");
+        ronda("Ronda 5");
         this.jugador.setPuntosJugador(this.puntosJugador);
         System.out.println("Congratulations " + this.jugador.nombreJugador()
                 + "\n Puntaje Total = " + this.puntosJugador);
@@ -60,11 +69,26 @@ public class IniciarJuego extends Historico {
         System.out.println(ronda);
         System.out.println("Si deseas retirarte digite \"salir\"");
         // buscar preguntas nuevas
-        escogerPregunta("arte", ronda);
-        escogerPregunta("deporte", ronda);
-        escogerPregunta("geografia", ronda);
-        escogerPregunta("entretenimiento", ronda);
-        escogerPregunta("ciencia", ronda);
+        switch (ronda){
+            case "Ronda 1":
+                escogerPregunta("arte", ronda);
+                break;
+            case "Ronda 2":
+                escogerPregunta("deporte", ronda);
+                break;
+            case "Ronda 3":
+                escogerPregunta("geografia", ronda);
+                break;
+            case "Ronda 4":
+                escogerPregunta("entretenimiento", ronda);
+                break;
+            case "Ronda 5":
+                escogerPregunta("ciencia", ronda);
+                break;
+            default:
+                break;
+        }
+
     }
 
     /**
@@ -154,28 +178,29 @@ public class IniciarJuego extends Historico {
     private void comprobarRespuesta(Integer respuestaJugador, Preguntas pregunta, String ronda) {
         if (pregunta.posicionRespuestaCorrecta() == respuestaJugador) {
             switch (ronda) {
-                case "ronda 1":
+                case "Ronda 1":
                     this.puntosJugador += 50;
                     break;
-                case "ronda 2":
+                case "Ronda 2":
                     this.puntosJugador += 100;
                     break;
-                case "ronda 3":
+                case "Ronda 3":
                     this.puntosJugador += 150;
                     break;
-                case "ronda 4":
+                case "Ronda 4":
                     this.puntosJugador += 250;
                     break;
-                case "ronda 5":
+                case "Ronda 5":
                     this.puntosJugador += 300;
                     break;
                 default:
+                    System.out.println("No está en ninguna ronda");
                     break;
             }
             System.out.println("Opción elegida correcta! \nTotal puntos: " + this.puntosJugador);
         } else {
             System.out.println("Opción elegida incorrecta! :/ la correcta era " + pregunta.posicionRespuestaCorrecta() +
-                    "\nGAME OVER!!!");
+                            "\n Puntaje Total = " + this.puntosJugador + "\nGAME OVER!!!");
             this.jugador.setPuntosJugador(this.puntosJugador);
             updateHistoricoJuego(this.jugador);
             testJuego.bienvenidaJuego();

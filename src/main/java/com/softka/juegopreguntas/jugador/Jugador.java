@@ -4,7 +4,9 @@ import java.io.Serializable;
 
 /**
  * Clase jugador que implementa interface Serializable
+ *
  * @author Steveen, Daniel, Andrey
+ *
  * @version 1.1.0
  * @since 1.0.0
  */
@@ -17,7 +19,8 @@ public class Jugador implements Serializable {
      * Constructor por defecto de la clase
      */
     public Jugador() {
-
+        this.nombreJugador = "";
+        this.puntosJugador = 0;
     }
 
     /**
