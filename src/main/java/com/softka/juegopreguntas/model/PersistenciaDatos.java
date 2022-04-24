@@ -20,7 +20,6 @@ import java.util.logging.Logger;
 
 public class PersistenciaDatos {
 
-
     private static final ArrayList<Jugador> HISTORICO_JUEGO = new ArrayList<>();
     private static Logger logger = Logger.getLogger("");
 

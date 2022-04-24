@@ -2,7 +2,6 @@ package com.softka.juegopreguntas.controller;
 
 import com.softka.juegopreguntas.jugador.Jugador;
 import com.softka.juegopreguntas.model.Historico;
-import com.softka.juegopreguntas.model.PersistenciaDatos;
 import com.softka.juegopreguntas.preguntas.Preguntas;
 
 
@@ -18,18 +17,14 @@ import java.util.Scanner;
  *  @since 1.0.0
  */
 public class IniciarJuego extends Historico {
-
-    TestJuego testJuego;
     private final ArrayList<Preguntas> preguntasSeleccionadas;
     private final Jugador jugador;
     private Integer puntosJugador;
-    private Preguntas preguntas;
 
     /**
      * constructor de la clase que inicia las propiedades
      */
     public IniciarJuego(){
-        this.testJuego = new TestJuego();
         this.preguntasSeleccionadas = new ArrayList<>();
         this.jugador = new Jugador();
         this.puntosJugador = 0;
@@ -182,10 +177,4 @@ public class IniciarJuego extends Historico {
         }
     }
 
-    /**
-     * método que muestra el historial del juego
-     */
-    public void verHistorial() {
-        testJuego.bienvenidaJuego();
-    }
 }

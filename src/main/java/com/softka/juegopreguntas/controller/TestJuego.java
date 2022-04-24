@@ -13,10 +13,9 @@ public class TestJuego {
     IniciarJuego iniciarJuego;
 
     /**
-     * contructor de la clase que inicializa las propiedades
+     * contructor de la clase
      */
     public TestJuego() {
-
     }
 
     /**
@@ -25,15 +24,17 @@ public class TestJuego {
     public void bienvenidaJuego() {
         iniciarJuego = new IniciarJuego();
         Scanner sc = new Scanner(System.in);
-        System.out.println("BIENVENIDO A QUIEN QUIERE SER INTELIGENTE \n\n" +
-                    "1. Comenzar a jugar" +
-                    "\n2. Mostrar historial de jugadores anteriores" +
-                    "\n3. Salir del juego" +
-                    "\nDigite número de la opción que desees realizar:");
-        Integer opcionUsuarioMenu =Integer.parseInt(sc.nextLine());
+        Integer opcionUsuarioMenu = 0;
         boolean ciclo;
+
         do {
             try {
+                System.out.println("BIENVENIDO A QUIEN QUIERE SER INTELIGENTE \n\n" +
+                        "1. Comenzar a jugar" +
+                        "\n2. Mostrar historial de jugadores anteriores" +
+                        "\n3. Salir del juego" +
+                        "\nDigite número de la opción que desees realizar:");
+                opcionUsuarioMenu = Integer.parseInt(sc.nextLine());
                 if (opcionUsuarioMenu < 1 || opcionUsuarioMenu > 3) {
                     System.out.println("No puedes ingresar una opción menor a 1 o mayor a 3");
                     ciclo = true;
@@ -54,6 +55,7 @@ public class TestJuego {
                 iniciarJuego.verHistorial();
                 break;
             default:
+                System.out.println("Gracias por jugar!!");
                 System.exit(0);
                 break;
         }

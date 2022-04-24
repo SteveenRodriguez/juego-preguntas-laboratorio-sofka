@@ -1,5 +1,6 @@
 package com.softka.juegopreguntas.model;
 
+import com.softka.juegopreguntas.controller.TestJuego;
 import com.softka.juegopreguntas.jugador.Jugador;
 
 import java.util.Scanner;
@@ -12,14 +13,25 @@ import java.util.Scanner;
  *  @since 1.0.0
  */
 public abstract class Historico {
+    public TestJuego testJuego = new TestJuego();
+
+    /**
+     * Método que actualiza el historico del juego.
+     * @param jugador
+     */
     public void updateHistoricoJuego(Jugador jugador){
         PersistenciaDatos.agregarDatoJugador(jugador);
         PersistenciaDatos.almacenarDatos();
     }
+
+    /**
+     * Método que muestra el historial del juego.
+     */
     public void verHistorial(){
         Scanner scanner = new Scanner(System.in);
         PersistenciaDatos.mostrarHistoricoJuego();
         System.out.println("Presione cualquier tecla, para volver al inicio.");
         scanner.nextLine();
+        testJuego.bienvenidaJuego();
     }
 }
