@@ -1,8 +1,9 @@
 package com.softka.juegopreguntas.controller;
 
 import com.softka.juegopreguntas.jugador.Jugador;
-import com.softka.juegopreguntas.model.PersistenciaDatos;
+import com.softka.juegopreguntas.model.Historico;
 import com.softka.juegopreguntas.preguntas.Preguntas;
+
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -10,23 +11,22 @@ import java.util.Scanner;
 
 /**
  * Clase que inicia el juego
+ *
  *  @author Steveen, Daniel, Andrey
  *  @version 1.1.0
  *  @since 1.0.0
  */
-public class IniciarJuego {
-
-    TestJuego testJuego;
+public class IniciarJuego extends Historico {
     private final ArrayList<Preguntas> preguntasSeleccionadas;
     private final Jugador jugador;
     private Integer puntosJugador;
-    private Preguntas preguntas;
+    private static final String rondaEstilo1 = "\n\t\u001B[45m";
+    private static final String rondaEstilo2 = "\u001B[0m";
 
     /**
      * constructor de la clase que inicia las propiedades
      */
     public IniciarJuego(){
-        this.testJuego = new TestJuego();
         this.preguntasSeleccionadas = new ArrayList<>();
         this.jugador = new Jugador();
         this.puntosJugador = 0;
@@ -39,16 +39,17 @@ public class IniciarJuego {
         Scanner sc = new Scanner(System.in);
         System.out.println("Digite su nombre:");
         this.jugador.setNombreJugador(sc.nextLine());
-        ronda("\n\t\u001B[45m" + "Ronda 1" + "\u001B[0m");
-        ronda("\n\t\u001B[45m" + "Ronda 2" + "\u001B[0m");
-        ronda("\n\t\u001B[45m" + "Ronda 3" + "\u001B[0m");
-        ronda("\n\t\u001B[45m" + "Ronda 4" + "\u001B[0m");
-        ronda("\n\t\u001B[45m" + "Ronda 5" + "\u001B[0m");
+        ronda(rondaEstilo1 + "Ronda 1" + rondaEstilo2);
+        ronda(rondaEstilo1 + "Ronda 2" + rondaEstilo2);
+        ronda(rondaEstilo1 + "Ronda 3" + rondaEstilo2);
+        ronda(rondaEstilo1 + "Ronda 4" + rondaEstilo2);
+        ronda(rondaEstilo1 + "Ronda 5" + rondaEstilo2);
         this.jugador.setPuntosJugador(this.puntosJugador);
         System.out.println("Congratulations " + this.jugador.nombreJugador()
                 + "\n Puntaje Total = " + this.puntosJugador);
         updateHistoricoJuego(this.jugador);
         testJuego.bienvenidaJuego();
+
     }
 
     /**
@@ -108,8 +109,9 @@ public class IniciarJuego {
     }
 
     /**
-     * método que obtiene la pregunta
-     * @param categoriaPregunta String
+     * Método que obtiene la pregunta
+     *
+     * @param categoriaPregunta String con la categoría de la pregunta
      * @return Pregunta
      */
     private Preguntas getPregunta(String categoriaPregunta) {
@@ -120,7 +122,7 @@ public class IniciarJuego {
         do {
             int iteracion = random.nextInt(valores.length);
             valorPregunta = valores[iteracion];
-            if (valorPregunta.categoriaPregunta().equals(categoriaPregunta)) {
+            if (valorPregunta.getCategoriaPregunta().equals(categoriaPregunta)){
                 preguntaEncontrada = false;
             }
         } while (preguntaEncontrada);
@@ -167,36 +169,17 @@ public class IniciarJuego {
                 case "ronda 5":
                     this.puntosJugador += 300;
                     break;
+                default:
+                    break;
             }
-            System.out.println("Opción elegida correcta!");
-            System.out.println("Total puntos: " + this.puntosJugador);
+            System.out.println("Opción elegida correcta! \nTotal puntos: " + this.puntosJugador);
         } else {
-            System.out.println(
-                    "Opción elegida incorrecta! :/ la correcta era " + pregunta.posicionRespuestaCorrecta());
-            System.out.println("GAME OVER!!!");
+            System.out.println("Opción elegida incorrecta! :/ la correcta era " + pregunta.posicionRespuestaCorrecta() +
+                    "\nGAME OVER!!!");
             this.jugador.setPuntosJugador(this.puntosJugador);
             updateHistoricoJuego(this.jugador);
             testJuego.bienvenidaJuego();
         }
     }
 
-    /**
-     * Método que actualiza el histórico del juego
-     * @param jugador Jugador
-     */
-    private void updateHistoricoJuego(Jugador jugador) {
-        PersistenciaDatos.agregarDatoJugador(jugador);
-        PersistenciaDatos.almacenarDatos();
-    }
-
-    /**
-     * método que muestra el historial del juego
-     */
-    void verHistorial() {
-        Scanner scanner = new Scanner(System.in);
-        PersistenciaDatos.mostrarHistoricoJuego();
-        System.out.println("Presione cualquier tecla, para volver al inicio.");
-        scanner.nextLine();
-        testJuego.bienvenidaJuego();
-    }
 }
