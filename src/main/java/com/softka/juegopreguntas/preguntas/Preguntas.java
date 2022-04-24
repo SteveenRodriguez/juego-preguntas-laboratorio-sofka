@@ -6,7 +6,6 @@ import java.util.Random;
  * Enum de preguntas con sus opciones de respuestas
  */
 public enum Preguntas {
-
     PREGUNTA_1("¿Dónde desemboca el río Amazonas?", "geografia", "En el mediterráneo", "En el canal de suez",
             "En el mar caribe", "En el océano Atlántico"),
     PREGUNTA_2("¿En qué país puedes visitar Machu Picchu?", "geografia", "En Bolivia", "En Chichen Itzá",
@@ -62,12 +61,12 @@ public enum Preguntas {
             "13.900 millones de años", "137 millones de años", "1.370 millones de años", "13.700 millones de años");
 
     private Integer posicionRespuestaCorrecta;
-    private String descripcion;
-    private String categoriaPregunta;
-    private String incorrecta1;
-    private String incorrecta2;
-    private String incorrecta3;
-    private String correcta;
+    private final String descripcion;
+    private final String categoriaPregunta;
+    private final String incorrecta1;
+    private final String incorrecta2;
+    private final String incorrecta3;
+    private final String correcta;
 
     /**
      * Constructor del Enum que inicializa los atributos
@@ -104,136 +103,42 @@ public enum Preguntas {
      *
      * @param posicionRespuestaCorrecta Integer
      */
-    public void setPosicionRespuestaCorrecta(Integer posicionRespuestaCorrecta) {
+    private void setPosicionRespuestaCorrecta(Integer posicionRespuestaCorrecta) {
         this.posicionRespuestaCorrecta = posicionRespuestaCorrecta;
-    }
-
-    /**
-     * Método que retorna respuesta incorrecta 1
-     *
-     * @return String
-     */
-    public String incorrecta1() {
-        return incorrecta1;
-    }
-
-    /**
-     * Método que envia respuesta incorrecta 1
-     *
-     * @param incorrecta1 String
-     */
-    public void setIncorrecta1(String incorrecta1) {
-        this.incorrecta1 = incorrecta1;
-    }
-
-    /**
-     * Método que retorna respuesta incorrecta 2
-     *
-     * @return String
-     */
-    public String incorrecta2() {
-        return incorrecta2;
-    }
-
-    /**
-     * Método que envia respuesta incorrecta 2
-     *
-     * @param incorrecta2 String
-     */
-    public void setIncorrecta2(String incorrecta2) {
-        this.incorrecta2 = incorrecta2;
-    }
-
-    /**
-     * Método que retorna respuesta incorrecta 3
-     *
-     * @return String
-     */
-    public String incorrecta3() {
-        return incorrecta3;
-    }
-
-    /**
-     * Método que envia respuesta incorrecta 3
-     *
-     * @param incorrecta3 String
-     */
-    public void setIncorrecta3(String incorrecta3) {
-        this.incorrecta3 = incorrecta3;
-    }
-
-    /**
-     * Método que retorna respuesta correcta S
-     * @return String
-     */
-    public String correcta() {
-        return correcta;
-    }
-    /**
-     * Método que envia respuesta correcta
-     * @param correcta String
-     */
-    public void setCorrecta(String correcta) {
-        this.correcta = correcta;
-    }
-
-    /**
-     * Método que retorna descripción
-     * @return String
-     */
-    public String descripcion() {
-        return descripcion;
-    }
-    /**
-     * Método que retorna descripción
-     * @param descripcion String
-     */
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
     }
 
     /**
      * método que retorna categoria de la pregunta
      * @return String
      */
-    public String categoriaPregunta() {
+    public String getCategoriaPregunta() {
         return categoriaPregunta;
-    }
-
-    /**
-     * método que envia la categoria de la pregunta
-     * @param categoriaPregunta String
-     */
-    public void setCategoriaPregunta (String categoriaPregunta) {
-        this.categoriaPregunta = categoriaPregunta;
     }
 
     /**
      * Método que elije la pregunta y su respuesta correcta
      */
     public void mostrarPregunta() {
-        System.out.println("\n\u001B[34m" + this.descripcion + "\u001B[0m\n");
+        System.out.println("\n\u001B[34m" + descripcion + "\u001B[0m\n");
         Random random = new Random();
         int nextInt = random.nextInt(5);
         if (nextInt > 3) {
-            System.out.println("1. " + this.incorrecta2);
-            System.out.println("2. " + this.incorrecta3);
-            System.out.println("3. " + this.incorrecta1);
-            System.out.println("4. " + this.correcta);
-            this.setPosicionRespuestaCorrecta(4);
+            imprimirPregunta(incorrecta2, incorrecta3, incorrecta1,
+                    correcta);
+            setPosicionRespuestaCorrecta(4);
         } else if (nextInt >= 2) {
-            System.out.println("1. " + this.incorrecta2);
-            System.out.println("2. " + this.correcta);
-            System.out.println("3. " + this.incorrecta1);
-            System.out.println("4. " + this.incorrecta3);
-            this.setPosicionRespuestaCorrecta(2);
+            imprimirPregunta(incorrecta2, correcta, incorrecta1, incorrecta3);
+            setPosicionRespuestaCorrecta(2);
         } else {
-            System.out.println("1. " + this.incorrecta2);
-            System.out.println("2. " + this.incorrecta1);
-            System.out.println("3. " + this.correcta);
-            System.out.println("4. " + this.incorrecta3);
-            this.setPosicionRespuestaCorrecta(3);
+            imprimirPregunta(incorrecta2, incorrecta1, correcta, incorrecta3);
+            setPosicionRespuestaCorrecta(3);
         }
     }
 
+    private void imprimirPregunta(String option1, String option2, String option3, String option4){
+        System.out.println("1. " + option1 +
+                "\n2. " + option2 +
+                "\n3. " + option3 +
+                "\n4. " + option4);
+    }
 }

@@ -1,8 +1,10 @@
 package com.softka.juegopreguntas.controller;
 
 import com.softka.juegopreguntas.jugador.Jugador;
+import com.softka.juegopreguntas.model.Historico;
 import com.softka.juegopreguntas.model.PersistenciaDatos;
 import com.softka.juegopreguntas.preguntas.Preguntas;
+
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -10,11 +12,12 @@ import java.util.Scanner;
 
 /**
  * Clase que inicia el juego
+ *
  *  @author Steveen, Daniel, Andrey
  *  @version 1.1.0
  *  @since 1.0.0
  */
-public class IniciarJuego {
+public class IniciarJuego extends Historico {
 
     TestJuego testJuego;
     private final ArrayList<Preguntas> preguntasSeleccionadas;
@@ -108,8 +111,9 @@ public class IniciarJuego {
     }
 
     /**
-     * método que obtiene la pregunta
-     * @param categoriaPregunta String
+     * Método que obtiene la pregunta
+     *
+     * @param categoriaPregunta String con la categoría de la pregunta
      * @return Pregunta
      */
     private Preguntas getPregunta(String categoriaPregunta) {
@@ -120,7 +124,7 @@ public class IniciarJuego {
         do {
             int iteracion = random.nextInt(valores.length);
             valorPregunta = valores[iteracion];
-            if (valorPregunta.categoriaPregunta().equals(categoriaPregunta)) {
+            if (valorPregunta.getCategoriaPregunta().equals(categoriaPregunta)){
                 preguntaEncontrada = false;
             }
         } while (preguntaEncontrada);
@@ -168,12 +172,10 @@ public class IniciarJuego {
                     this.puntosJugador += 300;
                     break;
             }
-            System.out.println("Opción elegida correcta!");
-            System.out.println("Total puntos: " + this.puntosJugador);
+            System.out.println("Opción elegida correcta! \nTotal puntos: " + this.puntosJugador);
         } else {
-            System.out.println(
-                    "Opción elegida incorrecta! :/ la correcta era " + pregunta.posicionRespuestaCorrecta());
-            System.out.println("GAME OVER!!!");
+            System.out.println("Opción elegida incorrecta! :/ la correcta era " + pregunta.posicionRespuestaCorrecta() +
+                    "\nGAME OVER!!!");
             this.jugador.setPuntosJugador(this.puntosJugador);
             updateHistoricoJuego(this.jugador);
             testJuego.bienvenidaJuego();
@@ -181,22 +183,9 @@ public class IniciarJuego {
     }
 
     /**
-     * Método que actualiza el histórico del juego
-     * @param jugador Jugador
-     */
-    private void updateHistoricoJuego(Jugador jugador) {
-        PersistenciaDatos.agregarDatoJugador(jugador);
-        PersistenciaDatos.almacenarDatos();
-    }
-
-    /**
      * método que muestra el historial del juego
      */
-    void verHistorial() {
-        Scanner scanner = new Scanner(System.in);
-        PersistenciaDatos.mostrarHistoricoJuego();
-        System.out.println("Presione cualquier tecla, para volver al inicio.");
-        scanner.nextLine();
+    public void verHistorial() {
         testJuego.bienvenidaJuego();
     }
 }
