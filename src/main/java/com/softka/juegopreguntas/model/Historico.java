@@ -13,11 +13,11 @@ import java.util.Scanner;
  *  @since 1.0.0
  */
 public abstract class Historico {
-    public TestJuego testJuego = new TestJuego();
+    public final TestJuego testJuego = new TestJuego();
 
     /**
      * Método que actualiza el historico del juego.
-     * @param jugador
+     * @param jugador Jugador que será añadido al historico del juego
      */
     public void updateHistoricoJuego(Jugador jugador){
         PersistenciaDatos.agregarDatoJugador(jugador);

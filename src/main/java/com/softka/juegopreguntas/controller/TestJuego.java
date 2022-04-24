@@ -13,9 +13,10 @@ public class TestJuego {
     IniciarJuego iniciarJuego;
 
     /**
-     * contructor de la clase
+     * Constructor de la clase.
      */
     public TestJuego() {
+        //Esta clase se encuentra vacía porque no hay atributos para inicializar.
     }
 
     /**
@@ -25,7 +26,7 @@ public class TestJuego {
         iniciarJuego = new IniciarJuego();
         Scanner sc = new Scanner(System.in);
         Integer opcionUsuarioMenu = 0;
-        boolean ciclo;
+        Boolean ciclo;
 
         do {
             try {
@@ -45,7 +46,7 @@ public class TestJuego {
                 System.out.println("Debe ingresar un número");
                 ciclo = true;
             }
-        } while (ciclo);
+        } while (Boolean.TRUE.equals(ciclo));
 
         switch (opcionUsuarioMenu) {
             case 1:

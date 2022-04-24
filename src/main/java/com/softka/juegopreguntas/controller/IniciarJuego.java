@@ -20,6 +20,8 @@ public class IniciarJuego extends Historico {
     private final ArrayList<Preguntas> preguntasSeleccionadas;
     private final Jugador jugador;
     private Integer puntosJugador;
+    private static final String rondaEstilo1 = "\n\t\u001B[45m";
+    private static final String rondaEstilo2 = "\u001B[0m";
 
     /**
      * constructor de la clase que inicia las propiedades
@@ -37,16 +39,17 @@ public class IniciarJuego extends Historico {
         Scanner sc = new Scanner(System.in);
         System.out.println("Digite su nombre:");
         this.jugador.setNombreJugador(sc.nextLine());
-        ronda("\n\t\u001B[45m" + "Ronda 1" + "\u001B[0m");
-        ronda("\n\t\u001B[45m" + "Ronda 2" + "\u001B[0m");
-        ronda("\n\t\u001B[45m" + "Ronda 3" + "\u001B[0m");
-        ronda("\n\t\u001B[45m" + "Ronda 4" + "\u001B[0m");
-        ronda("\n\t\u001B[45m" + "Ronda 5" + "\u001B[0m");
+        ronda(rondaEstilo1 + "Ronda 1" + rondaEstilo2);
+        ronda(rondaEstilo1 + "Ronda 2" + rondaEstilo2);
+        ronda(rondaEstilo1 + "Ronda 3" + rondaEstilo2);
+        ronda(rondaEstilo1 + "Ronda 4" + rondaEstilo2);
+        ronda(rondaEstilo1 + "Ronda 5" + rondaEstilo2);
         this.jugador.setPuntosJugador(this.puntosJugador);
         System.out.println("Congratulations " + this.jugador.nombreJugador()
                 + "\n Puntaje Total = " + this.puntosJugador);
         updateHistoricoJuego(this.jugador);
         testJuego.bienvenidaJuego();
+
     }
 
     /**
@@ -165,6 +168,8 @@ public class IniciarJuego extends Historico {
                     break;
                 case "ronda 5":
                     this.puntosJugador += 300;
+                    break;
+                default:
                     break;
             }
             System.out.println("Opción elegida correcta! \nTotal puntos: " + this.puntosJugador);
